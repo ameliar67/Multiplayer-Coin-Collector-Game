@@ -1,8 +1,12 @@
 require('dotenv').config();
-const express = require('express');
 const bodyParser = require('body-parser');
 
-const app = express();
+var express = require('express')
+  , http = require('http');
+var app = express();
+var server = http.createServer(app);
+
+
 var connectcount = 0
 
 const expect = require('chai');
@@ -49,23 +53,15 @@ app.use(function(req, res, next) {
 
 const portNum = process.env.PORT || 3000;
 
+var io = require('socket.io').listen(server);
+
 // Set up server and tests
-const server = app.listen(portNum, () => {
+server.listen(portNum, "0.0.0.0", () => {
   console.log(`Listening on port ${portNum}`);
-  if (process.env.NODE_ENV==='test') {
-    console.log('Running Tests...');
-    setTimeout(function () {
-      try {
-        runner.run();
-      } catch (error) {
-        console.log('Tests are not valid:');
-        console.error(error);
-      }
-    }, 1500);
-  }
+
 });
 
-const io = new socket(server)
+
 
 io.on('connection', (socket) => {
   console.log('a user connected');
