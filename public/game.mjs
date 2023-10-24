@@ -30,13 +30,7 @@ document.addEventListener('keydown', (event) => {
   }
 }, false);
 
-function collision_item_draw(one, two)  {
-context.clearRect(0,0,canvas.width,canvas.height);
-context.beginPath();
-context.arc(one, two, 30, 0, 2 * Math.PI);
-context.strokeStyle = '#ff0000';
-context.stroke()
-}
+
 var num = 200
 var num_y = 100
 
