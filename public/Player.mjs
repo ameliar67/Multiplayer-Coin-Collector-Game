@@ -17,8 +17,8 @@ class Player {
   }
 
   collision(item) {
-    this.c_x = Math.floor(Math.random() * 500);
-    this.c_y = Math.floor(Math.random() * 500);
+    this.c_x = Math.floor(Math.random() * (400-100) + 100);
+    this.c_y = Math.floor(Math.random() * (400-100) + 100);
     this.score = this.score + 1
   }
 

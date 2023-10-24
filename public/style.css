@@ -8,6 +8,7 @@ code {
 
 canvas {
   margin: auto;
+  border: 4px solid black
 }
 
 .container {

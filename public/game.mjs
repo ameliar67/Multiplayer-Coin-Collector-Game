@@ -13,16 +13,16 @@ document.addEventListener('keydown', (event) => {
   var name = event.key;
   var code = event.code;
   if (name == 'ArrowLeft') {
-    player.movePlayer('x', -50)
+    player.movePlayer('x', -10)
     socket.emit('chat message', player.x);
   } else if (name == 'ArrowRight'){
-    player.movePlayer('x', 50)
+    player.movePlayer('x', 10)
     socket.emit('chat message', player.y);
   }  else if (name == 'ArrowUp')  {
-    player.movePlayer('y', -50)
+    player.movePlayer('y', -10)
     socket.emit('chat message', player.y);
   }  else if (name == 'ArrowDown')  {
-    player.movePlayer('y', 50)
+    player.movePlayer('y', 10)
     socket.emit('chat message', player.y);
   }  else  
   {
@@ -33,7 +33,7 @@ document.addEventListener('keydown', (event) => {
 function collision_item_draw(one, two)  {
 context.clearRect(0,0,canvas.width,canvas.height);
 context.beginPath();
-context.arc(one, two, 10, 0, 2 * Math.PI);
+context.arc(one, two, 30, 0, 2 * Math.PI);
 context.strokeStyle = '#ff0000';
 context.stroke()
 }
@@ -47,20 +47,39 @@ context.beginPath();
 context.arc(player.c_x, player.c_y, 10, 0, 2 * Math.PI);
 context.strokeStyle = '#ff0000';
 context.stroke()
+context.fillStyle = "gold";
+context.fill();
 
 
-if (player.x > (player.c_x - 25) && player.x < (player.c_x + 25) && player.y > (player.c_y - 25) && player.y < (player.c_y + 25))  {
-  alert(`Same!, ${player.c_x}, ${player.c_y}, ${player.score}, ${player.id}, ${JSON.stringify(ids)}`)
+if (player.x >= (player.c_x - 31) && player.x <= (player.c_x + 31) && player.y >= (player.c_y - 31) && player.y <= (player.c_y + 31))  {
+  //alert(`Same!, ${player.c_x}, ${player.c_y}, ${player.x}, ${player.y}, ${JSON.stringify(ids)}`)
   player.collision(0)
   score++
-  socket.emit('chat message', player.c_x, player.c_y);
-  collision_item_draw(player.c_x, player.c_y)
+  socket.emit('chat message', (player.c_x, player.c_y));
 }
 
 context.beginPath();
-context.arc(player.x, player.y, 20, 0, 2 * Math.PI);
+context.arc(player.x, player.y, 30, 0, 2 * Math.PI);
 context.strokeStyle = '#ff0000';
 context.stroke()
+context.fillStyle = "white";
+context.fill();
+
+context.beginPath();
+context.arc(player.x + 10, player.y - 10, 5, 0, 2 * Math.PI);
+context.fillStyle = "green";
+context.fill();
+
+context.beginPath();
+context.arc(player.x - 10, player.y - 10, 5, 0, 2 * Math.PI);
+context.fillStyle = "green";
+context.fill();
+
+context.beginPath();
+context.arc(player.x, player.y + 4, 15, 0.15, 3);
+context.fillStyle = "red";
+context.fill();
+
 
 document.getElementById("score").innerHTML =     player.calculateRank(ids)
 }
