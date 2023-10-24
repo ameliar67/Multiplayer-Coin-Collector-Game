@@ -15,6 +15,15 @@ canvas {
   flex-direction: column;
 }
 
+#score  {
+  text-align: center;
+  font-size: 20px;
+}
+
+#title  {
+  text-align: center
+}
+
 @media (min-width: 800px) {
   .container {
     flex-direction: row;
