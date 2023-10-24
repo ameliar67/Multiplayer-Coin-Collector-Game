@@ -1,14 +1,25 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
+
+const app = express();
+var connectcount = 0
+
 const expect = require('chai');
 const socket = require('socket.io');
+
 const cors = require('cors');
+const helmet = require('helmet')
 
 const fccTestingRoutes = require('./routes/fcctesting.js');
 const runner = require('./test-runner.js');
 
-const app = express();
+
+app.use(helmet.noSniff())
+app.use(helmet.xssFilter())
+app.use(helmet.noCache())
+app.use(helmet.hidePoweredBy({ setTo: 'PHP 7.4.3' }))
+
 
 app.use('/public', express.static(process.cwd() + '/public'));
 app.use('/assets', express.static(process.cwd() + '/assets'));
@@ -27,6 +38,7 @@ app.route('/')
 
 //For FCC testing purposes
 fccTestingRoutes(app);
+
     
 // 404 Not Found Middleware
 app.use(function(req, res, next) {
@@ -51,6 +63,23 @@ const server = app.listen(portNum, () => {
       }
     }, 1500);
   }
+});
+
+const io = new socket(server)
+
+io.on('connection', (socket) => {
+  console.log('a user connected');
+  console.log(connectcount, 'conntect')
+  connectcount++
+  console.log(connectcount, 'conntect2')
+  socket.on('disconnect', () => {
+    connectcount--
+    console.log('user disconnected');
+  });
+  socket.on('chat message', (msg) => {
+    console.log('message: ' + msg);
+    io.emit('chat message', msg);
+  });
 });
 
 module.exports = app; // For testing
