@@ -60,12 +60,23 @@ function draw(num, num_y, score) {
 
   context.beginPath();
   context.arc(player.x + 10, player.y - 10, 5, 0, 2 * Math.PI);
-  context.fillStyle = "green";
+  context.fillStyle = "black";
   context.fill();
 
   context.beginPath();
   context.arc(player.x - 10, player.y - 10, 5, 0, 2 * Math.PI);
-  context.fillStyle = "green";
+  context.fillStyle = "black";
+  context.fill();
+
+  context.beginPath();
+  context.arc(player.x + 10, player.y - 11, 2.5, 0, 2 * Math.PI);
+  context.fillStyle = "white";
+  context.fill();
+  
+
+  context.beginPath();
+  context.arc(player.x - 10, player.y - 11, 2.5, 0, 2 * Math.PI);
+  context.fillStyle = "white";
   context.fill();
 
   context.beginPath();
