@@ -32,20 +32,20 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //For FCC testing purposes and enables user to connect from outside the hosting platform
-app.use(cors({origin: '*'})); 
+app.use(cors({ origin: '*' }));
 
 // Index page (static HTML)
 app.route('/')
   .get(function (req, res) {
     res.sendFile(process.cwd() + '/views/index.html');
-  }); 
+  });
 
 //For FCC testing purposes
 fccTestingRoutes(app);
 
-    
+
 // 404 Not Found Middleware
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.status(404)
     .type('text')
     .send('Not Found');
@@ -58,9 +58,7 @@ var io = require('socket.io').listen(server);
 // Set up server and tests
 server.listen(portNum, "0.0.0.0", () => {
   console.log(`Listening on port ${portNum}`);
-
 });
-
 
 
 io.on('connection', (socket) => {
